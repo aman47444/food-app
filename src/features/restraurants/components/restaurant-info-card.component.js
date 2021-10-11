@@ -1,50 +1,58 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
-import { Card, Cover } from "react-native-paper";
-import styled from "styled-components/native";
+import { SvgXml } from "react-native-svg";
+import star from "../../../../assets/star";
+import open from "../../../../assets/open";
+import { Spacer } from "../../../components/spacer/spacer.adv.component";
+import { Text } from "./../../../components/typogrophy/typogrophy.component";
+import {
+  Icon,
+  RestraurantCardCover,
+  RestraurantCard,
+  Rating,
+  Info,
+  Address,
+  Section,
+  SectionEnd,
+} from "./restraurant-info.styles";
 
 export const RestraurantInfoCardComponent = ({ restraurant = {} }) => {
-  const Title = styled(Text)`
-    color: ${(props) => props.theme.colors.ui.primary};
-    font-family: ${(props) => props.theme.fonts.body};
-  `;
-
-  const Address = styled(Text)`
-  color: ${(props) => props.theme.colors.ui.primary};
-    font-family: ${(props) => props.theme.fonts.heading};
-    font-size: ${(props) => props.theme.fontSizes.caption};
-  `;
-
-  const RestraurantCard = styled(Card)`
-    background-color: ${(props) => props.theme.colors.ui.quaternary};
-  `;
-
-  const RestraurantCardCover = styled(Card.Cover)`
-    padding: ${(props) => props.theme.space[3]};
-    background-color: white;
-  `;
-
-  const Info = styled.View`
-    padding: ${(props) => props.theme.space[3]};
-  `;
-
   const {
     name = "Sweegy",
-    icon,
+    icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
     photo = [
-      "https://s3-ap-southeast-1.amazonaws.com/he-public-data/rodrick14c9291.jpg",
+      "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
     ],
     address = "BHU Lanka Varanasi 221011",
-    openingHours = true,
+    isOpenNow = true,
     rating = 4,
-    isClosedTemporerly,
+    isClosedTemporerly = true,
   } = restraurant;
+
+  const ratingArray = Array.from(new Array(Math.ceil(rating)));
 
   return (
     <RestraurantCard elevation={5}>
       <RestraurantCardCover key={name} source={{ uri: photo[0] }} />
       <Info>
-        <Title>{name}</Title>
+        <Text variant="label">{name}</Text>
+        <Section>
+          <Rating>
+            {ratingArray.map((ele, idx) => (
+              <SvgXml key={idx} xml={star} width={20} height={20} />
+            ))}
+          </Rating>
+          <SectionEnd>
+            {isClosedTemporerly && (
+              <Text variant="error">Temporerly Closed</Text>
+            )}
+            <Spacer position="left" size="medium">
+              {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
+            </Spacer>
+            <Spacer position="left" size="medium">
+              <Icon source={{ uri: icon }} />
+            </Spacer>
+          </SectionEnd>
+        </Section>
         <Address>{address}</Address>
       </Info>
     </RestraurantCard>
