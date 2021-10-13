@@ -6,8 +6,8 @@ import { Spacer } from "../../../components/spacer/spacer.adv.component";
 import { Text } from "./../../../components/typogrophy/typogrophy.component";
 import {
   Icon,
-  RestraurantCardCover,
-  RestraurantCard,
+  RestaurantCardCover,
+  RestaurantCard,
   Rating,
   Info,
   Address,
@@ -15,7 +15,7 @@ import {
   SectionEnd,
 } from "./restraurant-info.styles";
 
-export const RestraurantInfoCardComponent = ({ restraurant = {} }) => {
+export const RestaurantInfoCardComponent = ({ restraurant = {} }) => {
   const {
     name = "Sweegy",
     icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
@@ -31,8 +31,8 @@ export const RestraurantInfoCardComponent = ({ restraurant = {} }) => {
   const ratingArray = Array.from(new Array(Math.ceil(rating)));
 
   return (
-    <RestraurantCard elevation={5}>
-      <RestraurantCardCover key={name} source={{ uri: photo[0] }} />
+    <RestaurantCard elevation={5}>
+      <RestaurantCardCover key={name} source={{ uri: photo[0] }} />
       <Info>
         <Text variant="label">{name}</Text>
         <Section>
@@ -55,6 +55,6 @@ export const RestraurantInfoCardComponent = ({ restraurant = {} }) => {
         </Section>
         <Address>{address}</Address>
       </Info>
-    </RestraurantCard>
+    </RestaurantCard>
   );
 };
