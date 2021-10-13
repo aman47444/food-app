@@ -15,6 +15,7 @@ export const Address = styled.Text`
 
 export const RestraurantCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.ui.quaternary};
+  margin-bottom: ${(props) => props.theme.space[3]};
 `;
 
 export const RestraurantCardCover = styled(Card.Cover)`
