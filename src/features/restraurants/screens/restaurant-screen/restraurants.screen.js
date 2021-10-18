@@ -1,18 +1,15 @@
 import React, { useContext } from "react";
-import { FlatList, View } from "react-native";
-import { Spacer } from "../../../components/spacer/spacer.adv.component";
-import { RestaurantInfoCardComponent } from "../components/restaurant-info-card.component";
+import { FlatList, View, TouchableOpacity } from "react-native";
+import { Spacer } from "../../../../components/spacer/spacer.adv.component";
+import { RestaurantInfoCardComponent } from "../../components/restaurant-info-card/restaurant-info-card.component";
 import styled from "styled-components/native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 
-import {
-  SafeArea,
-  SearchContainer,
-} from "./restraurant-screen.styles";
-import { RestaurantsContext } from "./../../../services/restaurant/restaurants.context";
-import { SearchComponent } from "../components/searchbar/search.component";
+import { SafeArea } from "./restraurant-screen.styles";
+import { RestaurantsContext } from "../../../../services/restaurant/restaurants.context";
+import { SearchComponent } from "../../components/searchbar/search.component";
 
-export const RestaurantScreen = () => {
+export const RestaurantScreen = ({ navigation }) => {
   const { restauants, isLoading, error } = useContext(RestaurantsContext);
   const RestaurantList = styled(FlatList).attrs({
     contentContainerStyle: {
@@ -42,9 +39,17 @@ export const RestaurantScreen = () => {
         data={restauants}
         renderItem={({ item }) => {
           return (
-            <Spacer variant="bottom" size="medium">
-              <RestaurantInfoCardComponent restraurant={item} />
-            </Spacer>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("RestaurantDetail", {
+                  restaurant: item,
+                })
+              }
+            >
+              <Spacer variant="bottom" size="medium">
+                <RestaurantInfoCardComponent restaurant={item} />
+              </Spacer>
+            </TouchableOpacity>
           );
         }}
         keyExtractor={(item) => item.name.toString()}

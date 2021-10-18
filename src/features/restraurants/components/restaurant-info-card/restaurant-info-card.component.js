@@ -1,9 +1,9 @@
 import React from "react";
 import { SvgXml } from "react-native-svg";
-import star from "../../../../assets/star";
-import open from "../../../../assets/open";
-import { Spacer } from "../../../components/spacer/spacer.adv.component";
-import { Text } from "./../../../components/typogrophy/typogrophy.component";
+import star from "../../../../../assets/star";
+import open from "../../../../../assets/open";
+import { Spacer } from "../../../../components/spacer/spacer.adv.component";
+import { Text } from "../../../../components/typogrophy/typogrophy.component";
 import {
   Icon,
   RestaurantCardCover,
@@ -15,7 +15,7 @@ import {
   SectionEnd,
 } from "./restraurant-info.styles";
 
-export const RestaurantInfoCardComponent = ({ restraurant = {} }) => {
+export const RestaurantInfoCardComponent = ({ restaurant = {} }) => {
   const {
     name = "Sweegy",
     icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
@@ -26,7 +26,8 @@ export const RestaurantInfoCardComponent = ({ restraurant = {} }) => {
     isOpenNow = true,
     rating = 4,
     isClosedTemporerly = true,
-  } = restraurant;
+    placeId,
+  } = restaurant;
 
   const ratingArray = Array.from(new Array(Math.ceil(rating)));
 
@@ -37,8 +38,13 @@ export const RestaurantInfoCardComponent = ({ restraurant = {} }) => {
         <Text variant="label">{name}</Text>
         <Section>
           <Rating>
-            {ratingArray.map((ele, idx) => (
-              <SvgXml key={idx} xml={star} width={20} height={20} />
+            {ratingArray.map((_, i) => (
+              <SvgXml
+                key={`star-${placeId}-${i}`}
+                xml={star}
+                width={20}
+                height={20}
+              />
             ))}
           </Rating>
           <SectionEnd>
