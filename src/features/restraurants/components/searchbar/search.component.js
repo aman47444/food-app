@@ -7,13 +7,17 @@ export const SearchComponent = () => {
   const { keyword, search } = useContext(LocationContext);
   const [seachKeyword, setSeachKeyword] = useState(keyword);
 
+  useEffect(() => {
+    setSeachKeyword(keyword);
+  }, [keyword]);
+
   return (
     <SearchContainer>
       <Searchbar
         placeholder="Seach for location"
         value={seachKeyword}
         onSubmitEditing={() => {
-            search(seachKeyword);
+          search(seachKeyword);
         }}
         onChangeText={(text) => setSeachKeyword(text)}
       />
