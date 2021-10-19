@@ -10,7 +10,7 @@ import { MapScreen } from './../../features/map/screen/map.screen';
 const Tab = createBottomTabNavigator();
 
 const TAB_ICONS = {
-  Restaurants: "md-restaurant",
+  Restaurant: "md-restaurant",
   Map: "md-map",
   Settings: "md-settings",
 };
@@ -35,7 +35,7 @@ export const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={createScreenOptions}>
-        <Tab.Screen options={{headerShown: false}} name="Restaurants" component={RestaurantsNavigator} />
+        <Tab.Screen options={{headerShown: false}} name="Restaurant" component={RestaurantsNavigator} />
         <Tab.Screen  options={{headerShown: false}} name="Map" component={MapScreen} />
         <Tab.Screen  options={{headerShown: false}} name="Settings" component={SettingScreen} />
       </Tab.Navigator>
