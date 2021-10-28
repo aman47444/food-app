@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
-import { FlatList, View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { Spacer } from "../../../../components/spacer/spacer.adv.component";
 import { RestaurantInfoCardComponent } from "../../components/restaurant-info-card/restaurant-info-card.component";
-import styled from "styled-components/native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 
 import { SafeArea } from "./restraurant-screen.styles";
@@ -10,16 +9,13 @@ import { RestaurantsContext } from "../../../../services/restaurant/restaurants.
 import { SearchComponent } from "../../components/searchbar/search.component";
 import { FavoritesContext } from "./../../../../services/favorites/favorites.context";
 import { FavouritesBar } from "../../../../components/favorites/favourites-bar.component";
+import { RestaurantList } from "./restaurant-list";
+import { FadeInView } from "../../../../components/animation/fade.animation";
 
 export const RestaurantScreen = ({ navigation }) => {
   const { restauants, isLoading, error } = useContext(RestaurantsContext);
   const { favorites } = useContext(FavoritesContext);
   const [isToggle, setIsToggle] = useState(false);
-  const RestaurantList = styled(FlatList).attrs({
-    contentContainerStyle: {
-      padding: 16,
-    },
-  })``;
 
   const LoadingComponent = () => (
     <ActivityIndicator
@@ -42,7 +38,9 @@ export const RestaurantScreen = ({ navigation }) => {
         isFavouritesToggle={isToggle}
         onFavouritesToggle={() => setIsToggle(!isToggle)}
       />
-      {isToggle && <FavouritesBar favorites={favorites} onNavigate={navigation.navigate} />}
+      {isToggle && (
+        <FavouritesBar favorites={favorites} onNavigate={navigation.navigate} />
+      )}
       <RestaurantList
         data={restauants}
         renderItem={({ item }) => {
@@ -55,7 +53,9 @@ export const RestaurantScreen = ({ navigation }) => {
               }
             >
               <Spacer variant="bottom" size="medium">
-                <RestaurantInfoCardComponent restaurant={item} />
+                <FadeInView>
+                  <RestaurantInfoCardComponent restaurant={item} />
+                </FadeInView>
               </Spacer>
             </TouchableOpacity>
           );
